@@ -1117,7 +1117,7 @@
           <div class="user-info">
             <div class="user-badge">
               <i class="fas fa-crown"></i>
-              <span id="userEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660509081214090a0a031426070e0b03020b07140d03120f080148050a091302">[email&#160;protected]</a></span>
+              <span id="userEmail">controller@ahmedmarketing.cloud</span>
             </div>
             <button class="btn-logout" onclick="logout()">
               <i class="fas fa-sign-out-alt"></i>
@@ -1338,7 +1338,7 @@
     </div>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
   <script>
     const SUPABASE_URL = 'https://sljhtwxwdluraptvsngr.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsamh0d3h3ZGx1cmFwdHZzbmdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIwMzEsImV4cCI6MjA4NjEzODAzMX0.nI4Qbfwhyuxg_FCwiZz-bnCpBvBqt7PgpuJD-wRUwJA';
@@ -1396,14 +1396,6 @@
           "ahmed@ahmedmarketing.cloud": {
             name: "أحمد حسن",
             codeHash: "ab32c2ecea6ea1b099c1fe7744c0405c2171b4114e80e3adb52bd19c912371e0",
-            role: "user",
-            status: "active",
-            tempAccess: null,
-            createdAt: new Date().toISOString()
-          },
-          "admin@ahmedmarketing.cloud": {
-            name: "mkd",
-            codeHash: "21817c78a3ba029c98dfa049d5edc500cda26d00d3a2c6b47cc6e7062a689ef0",
             role: "user",
             status: "active",
             tempAccess: null,
@@ -1874,4 +1866,15 @@
     function showStatusMessage(type, message) {
       const container = document.getElementById('statusMessage');
       container.className = `status-message ${type}`;
-      container.textContent
+      container.textContent = message;
+      container.style.display = 'block';
+      
+      setTimeout(() => {
+        container.style.display = 'none';
+      }, 3000);
+    }
+
+    window.addEventListener('DOMContentLoaded', loadSavedLogin);
+  </script>
+</body>
+</html>

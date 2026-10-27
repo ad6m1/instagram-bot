@@ -39,7 +39,7 @@
     .tech-bg {
       position: fixed;
       inset: 0;
-      background: 
+      background:
         radial-gradient(circle at 20% 30%, rgba(123, 47, 247, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 70%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.1) 0%, transparent 50%);
@@ -49,7 +49,7 @@
     .grid-lines {
       position: fixed;
       inset: 0;
-      background-image: 
+      background-image:
         linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
       background-size: 50px 50px;
@@ -74,7 +74,7 @@
     }
 
     @keyframes float {
-      0%, 100% { 
+      0%, 100% {
         transform: translate(0, 0);
         opacity: 0;
       }
@@ -112,7 +112,7 @@
       border: 1px solid rgba(0, 245, 255, 0.1);
       border-radius: 30px;
       padding: 50px 40px;
-      box-shadow: 
+      box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
       position: relative;
@@ -209,7 +209,7 @@
       justify-content: center;
       font-size: 35px;
       color: white;
-      box-shadow: 
+      box-shadow:
         0 0 30px var(--glow),
         inset 0 2px 0 rgba(255, 255, 255, 0.3);
       animation: iconFloat 3s ease-in-out infinite;
@@ -407,7 +407,7 @@
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 
+      box-shadow:
         0 15px 40px rgba(0, 245, 255, 0.4),
         0 0 30px var(--glow);
     }
@@ -459,7 +459,7 @@
       border: 1px solid rgba(0, 245, 255, 0.1);
       border-radius: 30px;
       padding: 40px;
-      box-shadow: 
+      box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
@@ -1032,7 +1032,7 @@
 <body>
   <div class="tech-bg"></div>
   <div class="grid-lines"></div>
-  
+
   <div class="particle"></div>
   <div class="particle"></div>
   <div class="particle"></div>
@@ -1045,7 +1045,7 @@
       <div class="card">
         <div class="tech-corner top-left"></div>
         <div class="tech-corner bottom-right"></div>
-        
+
         <div class="card-content">
           <div class="ai-logo">
             <div class="ai-icon-wrapper">
@@ -1071,7 +1071,7 @@
                 البريد الإلكتروني
               </label>
               <div class="input-wrapper">
-                <input type="email" id="emailInput" placeholder="controller@ahmedmarketing.cloud" required>
+                <input type="email" id="emailInput" placeholder="admin@octopus.system" required>
                 <i class="fas fa-user input-icon"></i>
               </div>
             </div>
@@ -1117,7 +1117,7 @@
           <div class="user-info">
             <div class="user-badge">
               <i class="fas fa-crown"></i>
-              <span id="userEmail">controller@ahmedmarketing.cloud</span>
+              <span id="userEmail">المدير</span>
             </div>
             <button class="btn-logout" onclick="logout()">
               <i class="fas fa-sign-out-alt"></i>
@@ -1270,7 +1270,7 @@
               <i class="fas fa-envelope"></i>
               البريد الإلكتروني
             </label>
-            <input type="email" id="modalEmail" placeholder="user@ahmedmarketing.cloud" required>
+            <input type="email" id="modalEmail" placeholder="user@example.com" required>
           </div>
 
           <div class="form-group">
@@ -1340,21 +1340,27 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
   <script>
-    const SUPABASE_URL = 'https://sljhtwxwdluraptvsngr.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsamh0d3h3ZGx1cmFwdHZzbmdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NjIwMzEsImV4cCI6MjA4NjEzODAzMX0.nI4Qbfwhyuxg_FCwiZz-bnCpBvBqt7PgpuJD-wRUwJA';
-    
+    // ============================================
+    // نفس قاعدة بيانات Supabase المستخدمة في نظام النشر الاخطبوطي
+    // ============================================
+    const SUPABASE_URL = 'https://yebsoadjtorlfojxfzgf.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllYnNvYWRqdG9ybGZvanhmemdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2Mjg0MTQsImV4cCI6MjA5NDIwNDQxNH0.IX4IWh3rs6uFcttrluIAHstk_Ok3270XAfyhs9S3bNE';
+
     let supabase;
-    
+
     window.addEventListener('DOMContentLoaded', () => {
       try {
         const { createClient } = window.supabase;
         supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log('✅ Supabase initialized');
+        console.log('Supabase initialized (unified database)');
       } catch (error) {
-        console.error('❌ Supabase initialization failed:', error);
+        console.error('Supabase initialization failed:', error);
       }
     });
 
+    // ============================================
+    // SHA-256 Hashing (same as octopus-system)
+    // ============================================
     async function sha256(message) {
       const msgBuffer = new TextEncoder().encode(message);
       const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -1363,91 +1369,49 @@
       return hashHex;
     }
 
-    const USERS_DB_KEY = 'aiCreatorUsers_v2';
-
-    function getUsers() {
-      const users = localStorage.getItem(USERS_DB_KEY);
-      if (!users) {
-        const defaultUsers = {
-          "controller@ahmedmarketing.cloud": {
-            name: "المالك الرئيسي",
-            codeHash: "9bfdca9597bac776ccdd7ce3b569469ad4ae3ac72a3948e1ebb6738aad736359",
-            role: "admin",
-            status: "active",
-            tempAccess: null,
-            createdAt: new Date().toISOString()
-          },
-          "ali@ahmedmarketing.cloud": {
-            name: "علي محمد",
-            codeHash: "d5083e34522626dd10e151c78c1ba502a3d67427b752c3fd43bd3b944072d1e7",
-            role: "user",
-            status: "active",
-            tempAccess: null,
-            createdAt: new Date().toISOString()
-          },
-          "sara@ahmedmarketing.cloud": {
-            name: "سارة أحمد",
-            codeHash: "b37278ee8ab915320c34334f2ed80013983a0e978aae1cbcce64950f055d6da4",
-            role: "user",
-            status: "active",
-            tempAccess: null,
-            createdAt: new Date().toISOString()
-          },
-          "ahmed@ahmedmarketing.cloud": {
-            name: "أحمد حسن",
-            codeHash: "ab32c2ecea6ea1b099c1fe7744c0405c2171b4114e80e3adb52bd19c912371e0",
-            role: "user",
-            status: "active",
-            tempAccess: null,
-            createdAt: new Date().toISOString()
-          }
-        };
-        localStorage.setItem(USERS_DB_KEY, JSON.stringify(defaultUsers));
-        return defaultUsers;
-      }
-      return JSON.parse(users);
-    }
-
-    function saveUsers(users) {
-      localStorage.setItem(USERS_DB_KEY, JSON.stringify(users));
-    }
-
+    // ============================================
+    // Temp Access Check
+    // ============================================
     function checkTempAccess(user) {
-      if (!user.tempAccess) {
+      if (!user.temp_expiry) {
         return { valid: true, expired: false };
       }
-      
-      const expiryDate = new Date(user.tempAccess.expiryDate);
+
+      const expiryDate = new Date(user.temp_expiry);
       const now = new Date();
-      
+
       if (now > expiryDate) {
-        return { 
-          valid: false, 
+        return {
+          valid: false,
           expired: true,
-          expiryDate: user.tempAccess.expiryDate,
-          daysGranted: user.tempAccess.days
+          expiryDate: user.temp_expiry
         };
       }
-      
+
       const daysRemaining = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
-      
-      return { 
-        valid: true, 
+
+      return {
+        valid: true,
         expired: false,
-        expiryDate: user.tempAccess.expiryDate,
-        daysGranted: user.tempAccess.days,
+        expiryDate: user.temp_expiry,
         daysRemaining: daysRemaining
       };
     }
 
+    // ============================================
+    // State Variables
+    // ============================================
     let currentUserEmail = "";
     let currentUserRole = "";
-    let editingUser = null;
+    let editingUserId = null;
 
+    // ============================================
+    // Password Visibility Toggle
+    // ============================================
     function togglePasswordVisibility() {
       const codeInput = document.getElementById('codeInput');
       const toggleIcon = document.getElementById('togglePassword');
-      
+
       if (codeInput.type === 'password') {
         codeInput.type = 'text';
         toggleIcon.classList.remove('fa-eye');
@@ -1459,10 +1423,12 @@
       }
     }
 
+    // ============================================
+    // Remember Me (login credentials in localStorage)
+    // ============================================
     function saveLoginData(email, code) {
       const expiryDate = new Date();
       expiryDate.setDate(expiryDate.getDate() + 30);
-      
       localStorage.setItem("savedAdminEmail", email);
       localStorage.setItem("savedAdminCode", code);
       localStorage.setItem("saveAdminExpiry", expiryDate.getTime());
@@ -1491,36 +1457,61 @@
       document.getElementById('rememberMe').checked = true;
     }
 
+    // ============================================
+    // LOGIN - Now uses Supabase users table
+    // ============================================
     async function login(event) {
       event.preventDefault();
-      
+
       const email = document.getElementById('emailInput').value.trim().toLowerCase();
       const code = document.getElementById('codeInput').value.trim();
 
-      const users = getUsers();
-
-      if (!users[email]) {
-        alert("❌ بيانات الدخول غير صحيحة");
+      if (!email || !code) {
+        alert("يرجى إدخال البريد والرمز");
         return;
       }
 
+      // Query Supabase users table
+      const { data: user, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single();
+
+      if (error || !user) {
+        alert("بيانات الدخول غير صحيحة");
+        return;
+      }
+
+      // Verify password hash
       const enteredCodeHash = await sha256(code);
-      
-      if (users[email].codeHash !== enteredCodeHash) {
-        alert("❌ بيانات الدخول غير صحيحة");
+      if (user.code_hash !== enteredCodeHash) {
+        alert("بيانات الدخول غير صحيحة");
         return;
       }
 
-      if (users[email].role !== 'admin') {
-        alert("❌ هذه اللوحة مخصصة للمالك فقط");
+      // Only admins can access this panel
+      if (user.role !== 'admin') {
+        alert("هذه اللوحة مخصصة للمالك فقط");
         return;
       }
 
-      if (users[email].status === 'disabled') {
-        alert("❌ هذا الحساب معطل");
+      // Check if account is disabled
+      if (user.status === 'disabled') {
+        alert("هذا الحساب معطل");
         return;
       }
 
+      // Check temp access expiry
+      if (user.temp_expiry) {
+        const tempCheck = checkTempAccess(user);
+        if (!tempCheck.valid) {
+          alert("انتهت صلاحية الوصول المؤقت لهذا الحساب");
+          return;
+        }
+      }
+
+      // Remember me
       if (document.getElementById('rememberMe').checked) {
         saveLoginData(email, code);
       } else {
@@ -1528,15 +1519,18 @@
       }
 
       currentUserEmail = email;
-      currentUserRole = users[email].role;
-      
+      currentUserRole = user.role;
+
       document.getElementById('loginPage').classList.add('hidden');
       document.getElementById('adminDashboard').classList.remove('hidden');
-      document.getElementById('userEmail').textContent = users[email].name || email;
-      
+      document.getElementById('userEmail').textContent = user.name || email;
+
       loadDashboard();
     }
 
+    // ============================================
+    // LOGOUT
+    // ============================================
     function logout() {
       if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
         clearLoginData();
@@ -1547,141 +1541,179 @@
       }
     }
 
+    // ============================================
+    // DASHBOARD LOADER
+    // ============================================
     async function loadDashboard() {
       await loadStats();
       await loadUsers();
     }
 
+    // ============================================
+    // LOAD STATS - All from Supabase
+    // ============================================
     async function loadStats() {
-      const users = getUsers();
-      const usersList = Object.entries(users);
-      
-      const totalUsers = usersList.length;
-      const activeUsers = usersList.filter(([_, u]) => u.status === 'active').length;
-      const disabledUsers = usersList.filter(([_, u]) => u.status === 'disabled').length;
-
-      document.getElementById('totalUsers').textContent = totalUsers;
-      document.getElementById('activeUsers').textContent = activeUsers;
-      document.getElementById('disabledUsers').textContent = disabledUsers;
-
       try {
+        // Count users
+        const { data: allUsers, error: usersErr } = await supabase
+          .from('users')
+          .select('id, status');
+
+        if (usersErr) throw usersErr;
+
+        const totalUsers = allUsers ? allUsers.length : 0;
+        const activeUsers = allUsers ? allUsers.filter(u => u.status === 'active').length : 0;
+        const disabledUsers = allUsers ? allUsers.filter(u => u.status === 'disabled').length : 0;
+
+        document.getElementById('totalUsers').textContent = totalUsers;
+        document.getElementById('activeUsers').textContent = activeUsers;
+        document.getElementById('disabledUsers').textContent = disabledUsers;
+
+        // Count posts
         const { data: published } = await supabase
           .from('published_posts')
-          .select('*', { count: 'exact' });
-        
+          .select('id');
+
         const { data: scheduled } = await supabase
           .from('scheduled_posts')
-          .select('*', { count: 'exact' });
+          .select('id');
 
         const totalPosts = (published?.length || 0) + (scheduled?.length || 0);
         document.getElementById('totalPosts').textContent = totalPosts;
       } catch (error) {
-        console.error('Error loading posts:', error);
-        document.getElementById('totalPosts').textContent = '0';
+        console.error('Error loading stats:', error);
       }
     }
 
+    // ============================================
+    // LOAD USERS - All from Supabase users table
+    // ============================================
     async function loadUsers() {
-      const users = getUsers();
       const tbody = document.getElementById('usersTableBody');
       tbody.innerHTML = '';
 
-      const postCounts = {};
       try {
-        const { data: published } = await supabase
-          .from('published_posts')
-          .select('user_email');
-        
-        const { data: scheduled } = await supabase
-          .from('scheduled_posts')
-          .select('user_email');
+        // Fetch all users from Supabase
+        const { data: users, error } = await supabase
+          .from('users')
+          .select('*')
+          .order('created_at', { ascending: false });
 
-        const allPosts = [...(published || []), ...(scheduled || [])];
-        allPosts.forEach(post => {
-          postCounts[post.user_email] = (postCounts[post.user_email] || 0) + 1;
-        });
-      } catch (error) {
-        console.error('Error loading post counts:', error);
-      }
-
-      for (const [email, user] of Object.entries(users)) {
-        const row = document.createElement('tr');
-        
-        const statusClass = user.status === 'active' ? 'active' : 'disabled';
-        const statusIcon = user.status === 'active' ? 'fa-check-circle' : 'fa-times-circle';
-        const statusText = user.status === 'active' ? 'نشط' : 'معطل';
-
-        const roleClass = user.role === 'admin' ? 'admin' : '';
-        const roleIcon = user.role === 'admin' ? 'fa-crown' : 'fa-user';
-        const roleText = user.role === 'admin' ? 'مدير' : 'مستخدم';
-
-        const createdDate = new Date(user.createdAt).toLocaleDateString('ar-IQ');
-        const posts = postCounts[email] || 0;
-
-        const tempAccessInfo = checkTempAccess(user);
-        let tempAccessHTML = '<span style="color: var(--text-muted); font-size: 12px;">-</span>';
-
-        if (user.tempAccess) {
-          if (tempAccessInfo.expired) {
-            tempAccessHTML = `
-              <span class="temp-access-badge expired">
-                <i class="fas fa-hourglass-end"></i>
-                منتهي
-              </span>
-            `;
-          } else {
-            tempAccessHTML = `
-              <span class="temp-access-badge active">
-                <i class="fas fa-clock"></i>
-                ${tempAccessInfo.daysRemaining} يوم
-              </span>
-            `;
-          }
+        if (error) throw error;
+        if (!users || users.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color: var(--text-muted); padding: 40px;">لا يوجد مستخدمين</td></tr>';
+          return;
         }
 
-        row.innerHTML = `
-          <td>
-            <div>
-              <div class="user-email">${user.name || email}</div>
-              <div class="user-name">${email}</div>
-            </div>
-          </td>
-          <td>
-            <span class="user-role ${roleClass}">
-              <i class="fas ${roleIcon}"></i>
-              ${roleText}
-            </span>
-          </td>
-          <td>
-            <span class="user-status ${statusClass}">
-              <i class="fas ${statusIcon}"></i>
-              ${statusText}
-            </span>
-          </td>
-          <td>${tempAccessHTML}</td>
-          <td>${createdDate}</td>
-          <td>${posts}</td>
-          <td>
-            <div class="action-btns">
-              <button class="btn-icon btn-edit" onclick="editUser('${email}')" title="تعديل">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn-icon btn-toggle" onclick="toggleUserStatus('${email}')" title="تفعيل/تعطيل">
-                <i class="fas fa-power-off"></i>
-              </button>
-              ${user.role !== 'admin' ? `
-                <button class="btn-icon btn-delete" onclick="deleteUser('${email}')" title="حذف">
-                  <i class="fas fa-trash"></i>
-                </button>
-              ` : ''}
-            </div>
-          </td>
-        `;
+        // Get post counts per user
+        const postCounts = {};
+        try {
+          const { data: published } = await supabase
+            .from('published_posts')
+            .select('user_email');
 
-        tbody.appendChild(row);
+          const { data: scheduled } = await supabase
+            .from('scheduled_posts')
+            .select('user_email');
+
+          const allPosts = [...(published || []), ...(scheduled || [])];
+          allPosts.forEach(post => {
+            postCounts[post.user_email] = (postCounts[post.user_email] || 0) + 1;
+          });
+        } catch (e) {
+          console.error('Error loading post counts:', e);
+        }
+
+        // Render each user row
+        for (const user of users) {
+          const row = document.createElement('tr');
+
+          const statusClass = user.status === 'active' ? 'active' : 'disabled';
+          const statusIcon = user.status === 'active' ? 'fa-check-circle' : 'fa-times-circle';
+          const statusText = user.status === 'active' ? 'نشط' : 'معطل';
+
+          const roleClass = user.role === 'admin' ? 'admin' : '';
+          const roleIcon = user.role === 'admin' ? 'fa-crown' : 'fa-user';
+          const roleText = user.role === 'admin' ? 'مدير' : 'مستخدم';
+
+          const createdDate = new Date(user.created_at).toLocaleDateString('ar-IQ');
+          const posts = postCounts[user.email] || 0;
+
+          // Temp access display
+          const tempAccessInfo = checkTempAccess(user);
+          let tempAccessHTML = '<span style="color: var(--text-muted); font-size: 12px;">-</span>';
+
+          if (user.temp_expiry) {
+            if (tempAccessInfo.expired) {
+              tempAccessHTML = `
+                <span class="temp-access-badge expired">
+                  <i class="fas fa-hourglass-end"></i>
+                  منتهي
+                </span>
+              `;
+            } else {
+              tempAccessHTML = `
+                <span class="temp-access-badge active">
+                  <i class="fas fa-clock"></i>
+                  ${tempAccessInfo.daysRemaining} يوم
+                </span>
+              `;
+            }
+          }
+
+          // Use user.id for actions (UUID from Supabase)
+          const uid = user.id;
+
+          row.innerHTML = `
+            <td>
+              <div>
+                <div class="user-email">${user.name || user.email}</div>
+                <div class="user-name">${user.email}</div>
+              </div>
+            </td>
+            <td>
+              <span class="user-role ${roleClass}">
+                <i class="fas ${roleIcon}"></i>
+                ${roleText}
+              </span>
+            </td>
+            <td>
+              <span class="user-status ${statusClass}">
+                <i class="fas ${statusIcon}"></i>
+                ${statusText}
+              </span>
+            </td>
+            <td>${tempAccessHTML}</td>
+            <td>${createdDate}</td>
+            <td>${posts}</td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-icon btn-edit" onclick="editUser('${uid}')" title="تعديل">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon btn-toggle" onclick="toggleUserStatus('${uid}')" title="تفعيل/تعطيل">
+                  <i class="fas fa-power-off"></i>
+                </button>
+                ${user.role !== 'admin' ? `
+                  <button class="btn-icon btn-delete" onclick="deleteUser('${uid}')" title="حذف">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+          `;
+
+          tbody.appendChild(row);
+        }
+      } catch (error) {
+        console.error('Error loading users:', error);
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color: var(--danger); padding: 40px;">خطأ في تحميل المستخدمين</td></tr>';
       }
     }
 
+    // ============================================
+    // TAB SWITCHING
+    // ============================================
     function switchTab(tab) {
       document.getElementById('tab-users').classList.remove('active');
       document.getElementById('tab-activity').classList.remove('active');
@@ -1694,8 +1726,11 @@
       document.getElementById(`${tab}Tab`).classList.remove('hidden');
     }
 
+    // ============================================
+    // ADD USER MODAL
+    // ============================================
     function openAddUserModal() {
-      editingUser = null;
+      editingUserId = null;
       document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> إضافة مستخدم جديد';
       document.getElementById('modalName').value = '';
       document.getElementById('modalEmail').value = '';
@@ -1710,41 +1745,60 @@
       document.getElementById('userModal').style.display = 'flex';
     }
 
-    function editUser(email) {
-      const users = getUsers();
-      const user = users[email];
-      
-      editingUser = email;
+    // ============================================
+    // EDIT USER - Fetch from Supabase by ID
+    // ============================================
+    async function editUser(userId) {
+      const { data: user, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error || !user) {
+        alert('خطأ في تحميل بيانات المستخدم');
+        return;
+      }
+
+      editingUserId = userId;
       document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> تعديل المستخدم';
       document.getElementById('modalName').value = user.name || '';
-      document.getElementById('modalEmail').value = email;
+      document.getElementById('modalEmail').value = user.email;
       document.getElementById('modalPassword').value = '';
       document.getElementById('modalPassword').placeholder = 'اتركه فارغاً للإبقاء على الرمز الحالي';
       document.getElementById('modalRole').value = user.role;
       document.getElementById('modalStatus').value = user.status;
-      
-      if (user.tempAccess) {
+
+      if (user.temp_expiry) {
         document.getElementById('modalTempAccess').checked = true;
-        document.getElementById('modalTempDays').value = user.tempAccess.days;
+        // Calculate remaining days
+        const remaining = Math.ceil((new Date(user.temp_expiry) - new Date()) / (1000 * 60 * 60 * 24));
+        document.getElementById('modalTempDays').value = remaining > 0 ? remaining : 30;
         toggleTempAccessInput();
       } else {
         document.getElementById('modalTempAccess').checked = false;
         toggleTempAccessInput();
       }
-      
+
       document.getElementById('modalEmail').disabled = true;
       document.getElementById('userModal').style.display = 'flex';
     }
 
+    // ============================================
+    // CLOSE MODAL
+    // ============================================
     function closeUserModal() {
       document.getElementById('userModal').style.display = 'none';
-      editingUser = null;
+      editingUserId = null;
     }
 
+    // ============================================
+    // TOGGLE TEMP ACCESS INPUT
+    // ============================================
     function toggleTempAccessInput() {
       const checkbox = document.getElementById('modalTempAccess');
       const daysGroup = document.getElementById('tempAccessDaysGroup');
-      
+
       if (checkbox.checked) {
         daysGroup.classList.remove('hidden');
       } else {
@@ -1752,6 +1806,9 @@
       }
     }
 
+    // ============================================
+    // SAVE USER - Insert or Update in Supabase
+    // ============================================
     async function saveUser() {
       const name = document.getElementById('modalName').value.trim();
       const email = document.getElementById('modalEmail').value.trim().toLowerCase();
@@ -1759,121 +1816,170 @@
       const role = document.getElementById('modalRole').value;
       const status = document.getElementById('modalStatus').value;
       const tempAccessEnabled = document.getElementById('modalTempAccess').checked;
-      const tempDays = document.getElementById('modalTempDays').value;
+      const tempDays = parseInt(document.getElementById('modalTempDays').value);
 
-      if (!name || !email || (!password && !editingUser)) {
-        alert('⚠️ الرجاء إكمال جميع البيانات');
+      if (!name || !email || (!password && !editingUserId)) {
+        alert('الرجاء إكمال جميع البيانات');
         return;
       }
 
-      if (!email.endsWith('@ahmedmarketing.cloud')) {
-        alert('⚠️ يجب أن ينتهي البريد بـ @ahmedmarketing.cloud');
-        return;
-      }
-
-      const users = getUsers();
-
-      if (editingUser) {
-        users[editingUser].name = name;
-        users[editingUser].role = role;
-        users[editingUser].status = status;
-        
-        if (password) {
-          users[editingUser].codeHash = await sha256(password);
-        }
-
-        if (tempAccessEnabled && tempDays > 0) {
-          const expiryDate = new Date();
-          expiryDate.setDate(expiryDate.getDate() + parseInt(tempDays));
-          
-          users[editingUser].tempAccess = {
-            enabled: true,
-            days: parseInt(tempDays),
-            startDate: new Date().toISOString(),
-            expiryDate: expiryDate.toISOString()
+      try {
+        if (editingUserId) {
+          // UPDATE existing user
+          const updateData = {
+            name: name,
+            role: role,
+            status: status,
+            updated_at: new Date().toISOString()
           };
+
+          // Update password only if provided
+          if (password) {
+            updateData.code_hash = await sha256(password);
+          }
+
+          // Temp access
+          if (tempAccessEnabled && tempDays > 0) {
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + tempDays);
+            updateData.temp_expiry = expiryDate.toISOString();
+          } else {
+            updateData.temp_expiry = null;
+          }
+
+          const { error } = await supabase
+            .from('users')
+            .update(updateData)
+            .eq('id', editingUserId);
+
+          if (error) throw error;
+          showStatusMessage('success', 'تم تحديث المستخدم بنجاح');
+
         } else {
-          users[editingUser].tempAccess = null;
+          // CHECK if email already exists
+          const { data: existing } = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', email)
+            .single();
+
+          if (existing) {
+            alert('هذا البريد مسجل مسبقاً');
+            return;
+          }
+
+          // INSERT new user
+          const newUser = {
+            name: name,
+            email: email,
+            code_hash: await sha256(password),
+            role: role,
+            status: status,
+            temp_expiry: null
+          };
+
+          if (tempAccessEnabled && tempDays > 0) {
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + tempDays);
+            newUser.temp_expiry = expiryDate.toISOString();
+          }
+
+          const { error } = await supabase
+            .from('users')
+            .insert([newUser]);
+
+          if (error) throw error;
+          showStatusMessage('success', 'تم إضافة المستخدم بنجاح');
         }
 
-        showStatusMessage('success', '✅ تم تحديث المستخدم بنجاح');
-      } else {
-        if (users[email]) {
-          alert('⚠️ هذا البريد مسجل مسبقاً');
+        closeUserModal();
+        await loadDashboard();
+
+      } catch (error) {
+        console.error('Error saving user:', error);
+        alert('حدث خطأ: ' + error.message);
+      }
+    }
+
+    // ============================================
+    // TOGGLE USER STATUS - Update in Supabase
+    // ============================================
+    async function toggleUserStatus(userId) {
+      try {
+        // Fetch current user
+        const { data: user, error: fetchErr } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', userId)
+          .single();
+
+        if (fetchErr || !user) {
+          alert('خطأ في تحميل بيانات المستخدم');
           return;
         }
 
-        const newUser = {
-          name: name,
-          codeHash: await sha256(password),
-          role: role,
-          status: status,
-          tempAccess: null,
-          createdAt: new Date().toISOString()
-        };
-
-        if (tempAccessEnabled && tempDays > 0) {
-          const expiryDate = new Date();
-          expiryDate.setDate(expiryDate.getDate() + parseInt(tempDays));
-          
-          newUser.tempAccess = {
-            enabled: true,
-            days: parseInt(tempDays),
-            startDate: new Date().toISOString(),
-            expiryDate: expiryDate.toISOString()
-          };
+        if (user.role === 'admin' && user.email === currentUserEmail) {
+          alert('لا يمكنك تعطيل حسابك الخاص');
+          return;
         }
 
-        users[email] = newUser;
-        showStatusMessage('success', '✅ تم إضافة المستخدم بنجاح');
-      }
+        const newStatus = user.status === 'active' ? 'disabled' : 'active';
+        const action = newStatus === 'disabled' ? 'تعطيل' : 'تفعيل';
 
-      saveUsers(users);
-      closeUserModal();
-      await loadDashboard();
-    }
+        if (confirm(`هل أنت متأكد من ${action} هذا المستخدم؟`)) {
+          const { error } = await supabase
+            .from('users')
+            .update({ status: newStatus, updated_at: new Date().toISOString() })
+            .eq('id', userId);
 
-    function toggleUserStatus(email) {
-      const users = getUsers();
-      const user = users[email];
-      
-      if (user.role === 'admin' && email === currentUserEmail) {
-        alert('⚠️ لا يمكنك تعطيل حسابك الخاص');
-        return;
-      }
-
-      const newStatus = user.status === 'active' ? 'disabled' : 'active';
-      const action = newStatus === 'disabled' ? 'تعطيل' : 'تفعيل';
-      
-      if (confirm(`هل أنت متأكد من ${action} هذا المستخدم؟`)) {
-        users[email].status = newStatus;
-        saveUsers(users);
-        showStatusMessage('success', `✅ تم ${action} المستخدم بنجاح`);
-        loadDashboard();
+          if (error) throw error;
+          showStatusMessage('success', `تم ${action} المستخدم بنجاح`);
+          await loadDashboard();
+        }
+      } catch (error) {
+        console.error('Error toggling status:', error);
+        alert('حدث خطأ: ' + error.message);
       }
     }
 
-    function deleteUser(email) {
-      if (confirm('⚠️ هل أنت متأكد من حذف هذا المستخدم؟')) {
-        const users = getUsers();
-        delete users[email];
-        saveUsers(users);
-        showStatusMessage('success', '✅ تم حذف المستخدم بنجاح');
-        loadDashboard();
+    // ============================================
+    // DELETE USER - Delete from Supabase
+    // ============================================
+    async function deleteUser(userId) {
+      if (confirm('هل أنت متأكد من حذف هذا المستخدم؟ سيتم حذف جميع بياناته.')) {
+        try {
+          const { error } = await supabase
+            .from('users')
+            .delete()
+            .eq('id', userId);
+
+          if (error) throw error;
+          showStatusMessage('success', 'تم حذف المستخدم بنجاح');
+          await loadDashboard();
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          alert('حدث خطأ: ' + error.message);
+        }
       }
     }
 
+    // ============================================
+    // STATUS MESSAGE
+    // ============================================
     function showStatusMessage(type, message) {
       const container = document.getElementById('statusMessage');
       container.className = `status-message ${type}`;
       container.textContent = message;
       container.style.display = 'block';
-      
+
       setTimeout(() => {
         container.style.display = 'none';
       }, 3000);
     }
 
+    // ============================================
+    // INIT
+    // ============================================
     window.addEventListener('DOMContentLoaded', loadSavedLogin);
   </script>
 </body>

@@ -1471,6 +1471,12 @@
         return;
       }
 
+      // Check if Supabase is initialized
+      if (!supabase) {
+        alert("خطأ: لم يتم تهيئة الاتصال بقاعدة البيانات. أعد تحميل الصفحة.");
+        return;
+      }
+
       // Query Supabase users table
       const { data: user, error } = await supabase
         .from('users')
@@ -1478,15 +1484,27 @@
         .eq('email', email)
         .single();
 
-      if (error || !user) {
-        alert("بيانات الدخول غير صحيحة");
+      if (error) {
+        console.error('Login error:', error);
+        if (error.code === 'PGRST116') {
+          alert("❌ هذا البريد غير موجود في قاعدة البيانات.\n\nتأكد من تشغيل ملف SQL لإنشاء الجداول وإضافة المستخدم الأدمن.\n\nError: " + error.message);
+        } else if (error.code === '42P01') {
+          alert("❌ جدول users غير موجود في قاعدة البيانات!\n\nيجب تشغيل ملف supabase-setup.sql في لوحة Supabase.\n\nError: " + error.message);
+        } else {
+          alert("❌ خطأ في الاتصال بقاعدة البيانات:\n\nCode: " + error.code + "\nMessage: " + error.message + "\nDetails: " + (error.details || 'none'));
+        }
+        return;
+      }
+
+      if (!user) {
+        alert("❌ لم يتم العثور على المستخدم");
         return;
       }
 
       // Verify password hash
       const enteredCodeHash = await sha256(code);
       if (user.code_hash !== enteredCodeHash) {
-        alert("بيانات الدخول غير صحيحة");
+        alert("❌ الرمز غير صحيح\n\nHash المدخل: " + enteredCodeHash.substring(0,16) + "...\nHash المخزن: " + (user.code_hash ? user.code_hash.substring(0,16) + "..." : "فارغ!"));
         return;
       }
 

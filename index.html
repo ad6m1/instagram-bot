@@ -2161,7 +2161,7 @@
       }
 
       try {
-        const configValue = { provider, apiKey, model: model || null };
+        const configValue = JSON.stringify({ provider, apiKey, model: model || undefined });
 
         // Try update first
         const { data: existing } = await supabase

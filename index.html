@@ -1181,6 +1181,10 @@
             <i class="fas fa-file-alt"></i>
             التقارير
           </button>
+          <button class="tab-btn" onclick="switchTab('ai')" id="tab-ai">
+            <i class="fas fa-robot"></i>
+            إعدادات AI
+          </button>
         </div>
 
         <div id="usersTab">
@@ -1237,6 +1241,77 @@
               </h3>
             </div>
             <p style="text-align: center; color: var(--text-muted); padding: 40px;">قريباً...</p>
+          </div>
+        </div>
+
+        <div id="aiTab" class="hidden">
+          <div class="table-container">
+            <div class="table-header">
+              <h3>
+                <i class="fas fa-brain"></i>
+                إعدادات الذكاء الاصطناعي
+              </h3>
+            </div>
+
+            <div id="aiStatusMessage"></div>
+
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px 0;">
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-server"></i>
+                  مزود الذكاء الاصطناعي
+                </label>
+                <select id="aiProvider" onchange="onProviderChange()">
+                  <option value="">-- اختر المزود --</option>
+                  <option value="gemini">Google (Gemini)</option>
+                  <option value="openai">OpenAI (ChatGPT)</option>
+                  <option value="anthropic">Anthropic (Claude)</option>
+                </select>
+              </div>
+
+              <div id="providerInfo" style="display:none; margin-bottom:20px;">
+                <div style="background: rgba(0, 245, 255, 0.05); border: 1px solid rgba(0, 245, 255, 0.2); border-radius: 12px; padding: 15px; font-size: 13px; color: var(--primary); display: flex; align-items: flex-start; gap: 10px;">
+                  <i class="fas fa-info-circle" style="margin-top: 3px;"></i>
+                  <span id="providerInfoText"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-key"></i>
+                  مفتاح API Key
+                </label>
+                <div class="input-wrapper">
+                  <input type="password" id="aiApiKey" placeholder="أدخل مفتاح الـ API">
+                  <i class="fas fa-key input-icon"></i>
+                  <i class="fas fa-eye eye-icon" onclick="toggleApiKeyVisibility()"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <i class="fas fa-cog"></i>
+                  الموديل (اختياري)
+                </label>
+                <input type="text" id="aiModel" placeholder="اتركه فارغ للموديل الافتراضي">
+                <div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);" id="modelHint"></div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <button class="btn-save" onclick="saveAiConfig()" style="flex: 1; padding: 15px;">
+                  <i class="fas fa-save"></i>
+                  حفظ الإعدادات
+                </button>
+                <button class="btn-cancel" onclick="testAiConfig()" style="flex: 0 0 auto; padding: 15px 25px;">
+                  <i class="fas fa-flask"></i>
+                  اختبار
+                </button>
+              </div>
+
+              <div id="aiTestResult" style="display:none; margin-top: 20px; padding: 15px; border-radius: 12px; font-size: 14px;"></div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -1733,15 +1808,14 @@
     // TAB SWITCHING
     // ============================================
     function switchTab(tab) {
-      document.getElementById('tab-users').classList.remove('active');
-      document.getElementById('tab-activity').classList.remove('active');
-      document.getElementById('tab-reports').classList.remove('active');
+      ['users', 'activity', 'reports', 'ai'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.remove('active');
+        document.getElementById(`${t}Tab`).classList.add('hidden');
+      });
       document.getElementById(`tab-${tab}`).classList.add('active');
-
-      document.getElementById('usersTab').classList.add('hidden');
-      document.getElementById('activityTab').classList.add('hidden');
-      document.getElementById('reportsTab').classList.add('hidden');
       document.getElementById(`${tab}Tab`).classList.remove('hidden');
+
+      if (tab === 'ai') loadAiConfig();
     }
 
     // ============================================
@@ -1993,6 +2067,194 @@
       setTimeout(() => {
         container.style.display = 'none';
       }, 3000);
+    }
+
+    // ============================================
+    // AI CONFIG - Load / Save / Test
+    // ============================================
+    const PROVIDER_INFO = {
+      gemini: {
+        text: 'احصل على مفتاح Gemini من <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--primary);">Google AI Studio</a>. الموديل الافتراضي: gemini-flash-latest',
+        modelHint: 'أمثلة: gemini-flash-latest, gemini-2.5-flash, gemini-pro',
+        testUrl: (key) => `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`,
+      },
+      openai: {
+        text: 'احصل على مفتاح OpenAI من <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--primary);">OpenAI Platform</a>. الموديل الافتراضي: gpt-4o-mini',
+        modelHint: 'أمثلة: gpt-4o, gpt-4o-mini, gpt-4-turbo',
+        testUrl: (key) => 'https://api.openai.com/v1/models',
+      },
+      anthropic: {
+        text: 'احصل على مفتاح Claude من <a href="https://console.anthropic.com/" target="_blank" style="color:var(--primary);">Anthropic Console</a>. الموديل الافتراضي: claude-sonnet-4-20250514',
+        modelHint: 'أمثلة: claude-sonnet-4-20250514, claude-haiku-4-20250514',
+        testUrl: null,
+      }
+    };
+
+    function onProviderChange() {
+      const provider = document.getElementById('aiProvider').value;
+      const infoDiv = document.getElementById('providerInfo');
+      const infoText = document.getElementById('providerInfoText');
+      const modelHint = document.getElementById('modelHint');
+
+      if (provider && PROVIDER_INFO[provider]) {
+        infoDiv.style.display = 'block';
+        infoText.innerHTML = PROVIDER_INFO[provider].text;
+        modelHint.textContent = PROVIDER_INFO[provider].modelHint;
+      } else {
+        infoDiv.style.display = 'none';
+        modelHint.textContent = '';
+      }
+    }
+
+    function toggleApiKeyVisibility() {
+      const input = document.getElementById('aiApiKey');
+      const icon = input.closest('.input-wrapper').querySelector('.eye-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    async function loadAiConfig() {
+      try {
+        const { data, error } = await supabase
+          .from('settings')
+          .select('value')
+          .eq('key', 'ai_config')
+          .single();
+
+        if (error && error.code === 'PGRST116') {
+          // No config yet — that's fine
+          return;
+        }
+        if (error) throw error;
+
+        if (data && data.value) {
+          const config = typeof data.value === 'string' ? JSON.parse(data.value) : data.value;
+          document.getElementById('aiProvider').value = config.provider || '';
+          document.getElementById('aiApiKey').value = config.apiKey || '';
+          document.getElementById('aiModel').value = config.model || '';
+          onProviderChange();
+        }
+      } catch (err) {
+        console.error('Error loading AI config:', err);
+      }
+    }
+
+    async function saveAiConfig() {
+      const provider = document.getElementById('aiProvider').value;
+      const apiKey = document.getElementById('aiApiKey').value.trim();
+      const model = document.getElementById('aiModel').value.trim();
+
+      if (!provider) {
+        showAiStatus('error', 'اختر مزود الذكاء الاصطناعي');
+        return;
+      }
+      if (!apiKey) {
+        showAiStatus('error', 'أدخل مفتاح API Key');
+        return;
+      }
+
+      try {
+        const configValue = { provider, apiKey, model: model || null };
+
+        // Try update first
+        const { data: existing } = await supabase
+          .from('settings')
+          .select('key')
+          .eq('key', 'ai_config')
+          .single();
+
+        if (existing) {
+          const { error } = await supabase
+            .from('settings')
+            .update({ value: configValue, updated_at: new Date().toISOString() })
+            .eq('key', 'ai_config');
+          if (error) throw error;
+        } else {
+          const { error } = await supabase
+            .from('settings')
+            .insert([{ key: 'ai_config', value: configValue }]);
+          if (error) throw error;
+        }
+
+        showAiStatus('success', 'تم حفظ إعدادات AI بنجاح');
+      } catch (err) {
+        console.error('Error saving AI config:', err);
+        showAiStatus('error', 'خطأ في الحفظ: ' + err.message);
+      }
+    }
+
+    async function testAiConfig() {
+      const provider = document.getElementById('aiProvider').value;
+      const apiKey = document.getElementById('aiApiKey').value.trim();
+      const resultDiv = document.getElementById('aiTestResult');
+
+      if (!provider || !apiKey) {
+        resultDiv.style.display = 'block';
+        resultDiv.style.background = 'rgba(239, 68, 68, 0.2)';
+        resultDiv.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        resultDiv.style.color = 'var(--danger)';
+        resultDiv.innerHTML = '<i class="fas fa-times-circle"></i> اختر المزود وأدخل المفتاح أولاً';
+        return;
+      }
+
+      resultDiv.style.display = 'block';
+      resultDiv.style.background = 'rgba(0, 245, 255, 0.1)';
+      resultDiv.style.border = '1px solid rgba(0, 245, 255, 0.2)';
+      resultDiv.style.color = 'var(--primary)';
+      resultDiv.innerHTML = '<span class="spin" style="display:inline-block;width:14px;height:14px;border:2px solid var(--text-muted);border-top-color:var(--primary);border-radius:50%;animation:s .8s linear infinite;vertical-align:middle;margin-left:8px;"></span> جاري الاختبار...';
+
+      try {
+        let ok = false;
+
+        if (provider === 'gemini') {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+          ok = res.ok;
+          if (!ok) {
+            const body = await res.json().catch(() => ({}));
+            throw new Error(body.error?.message || `HTTP ${res.status}`);
+          }
+        } else if (provider === 'openai') {
+          const res = await fetch('https://api.openai.com/v1/models', {
+            headers: { 'Authorization': `Bearer ${apiKey}` }
+          });
+          ok = res.ok;
+          if (!ok) {
+            const body = await res.json().catch(() => ({}));
+            throw new Error(body.error?.message || `HTTP ${res.status}`);
+          }
+        } else if (provider === 'anthropic') {
+          // Anthropic API doesn't allow browser-direct calls (no CORS)
+          // Just validate key format
+          ok = apiKey.startsWith('sk-ant-');
+          if (!ok) throw new Error('مفتاح Anthropic لازم يبدي بـ sk-ant-');
+        }
+
+        resultDiv.style.background = 'rgba(16, 185, 129, 0.2)';
+        resultDiv.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+        resultDiv.style.color = 'var(--success)';
+        resultDiv.innerHTML = '<i class="fas fa-check-circle"></i> المفتاح شغال! الاتصال ناجح.';
+
+      } catch (err) {
+        resultDiv.style.background = 'rgba(239, 68, 68, 0.2)';
+        resultDiv.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        resultDiv.style.color = 'var(--danger)';
+        resultDiv.innerHTML = '<i class="fas fa-times-circle"></i> فشل الاختبار: ' + err.message;
+      }
+    }
+
+    function showAiStatus(type, message) {
+      const container = document.getElementById('aiStatusMessage');
+      container.className = `status-message ${type}`;
+      container.textContent = message;
+      container.style.display = 'block';
+      setTimeout(() => { container.style.display = 'none'; }, 3000);
     }
 
     // ============================================

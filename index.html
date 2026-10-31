@@ -1380,6 +1380,34 @@
 
           <div class="form-group">
             <label>
+              <i class="fas fa-link"></i>
+              رابط ربط الحسابات (اختياري)
+            </label>
+            <input type="url" id="modalConnectUrl" placeholder="https://app.example.com/connect/..." dir="ltr" style="text-align:left;">
+            <div class="temp-access-info">
+              <i class="fas fa-info-circle"></i>
+              الرابط الذي سيظهر للمشترك لربط حساباته بالمنصة
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <i class="fas fa-robot"></i>
+              رابط Webhook النشر (اختياري)
+            </label>
+            <input type="url" id="modalWebhookUrl" placeholder="https://n8n.example.com/webhook/..." dir="ltr" style="text-align:left;">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <i class="fas fa-comment-dots"></i>
+              رابط Webhook البوت (اختياري)
+            </label>
+            <input type="url" id="modalWebhookBot" placeholder="https://n8n.example.com/webhook/..." dir="ltr" style="text-align:left;">
+          </div>
+
+          <div class="form-group">
+            <label>
               <i class="fas fa-clock"></i>
               الوصول المؤقت (اختياري)
             </label>
@@ -1760,7 +1788,7 @@
           row.innerHTML = `
             <td>
               <div>
-                <div class="user-email">${user.name || user.email}</div>
+                <div class="user-email">${user.name || user.email} ${user.connect_url ? '<i class="fas fa-link" style="color:var(--success);font-size:10px;" title="رابط الربط مفعّل"></i>' : ''}</div>
                 <div class="user-name">${user.email}</div>
               </div>
             </td>
@@ -1830,6 +1858,9 @@
       document.getElementById('modalPassword').placeholder = 'أدخل الرمز السري';
       document.getElementById('modalRole').value = 'user';
       document.getElementById('modalStatus').value = 'active';
+      document.getElementById('modalConnectUrl').value = '';
+      document.getElementById('modalWebhookUrl').value = '';
+      document.getElementById('modalWebhookBot').value = '';
       document.getElementById('modalTempAccess').checked = false;
       document.getElementById('modalTempDays').value = '30';
       toggleTempAccessInput();
@@ -1860,6 +1891,9 @@
       document.getElementById('modalPassword').placeholder = 'اتركه فارغاً للإبقاء على الرمز الحالي';
       document.getElementById('modalRole').value = user.role;
       document.getElementById('modalStatus').value = user.status;
+      document.getElementById('modalConnectUrl').value = user.connect_url || '';
+      document.getElementById('modalWebhookUrl').value = user.webhook_url || '';
+      document.getElementById('modalWebhookBot').value = user.webhook_bot || '';
 
       if (user.temp_expiry) {
         document.getElementById('modalTempAccess').checked = true;
@@ -1907,6 +1941,9 @@
       const password = document.getElementById('modalPassword').value.trim();
       const role = document.getElementById('modalRole').value;
       const status = document.getElementById('modalStatus').value;
+      const connectUrl = document.getElementById('modalConnectUrl').value.trim();
+      const webhookUrl = document.getElementById('modalWebhookUrl').value.trim();
+      const webhookBot = document.getElementById('modalWebhookBot').value.trim();
       const tempAccessEnabled = document.getElementById('modalTempAccess').checked;
       const tempDays = parseInt(document.getElementById('modalTempDays').value);
 
@@ -1922,6 +1959,9 @@
             name: name,
             role: role,
             status: status,
+            connect_url: connectUrl || null,
+            webhook_url: webhookUrl || null,
+            webhook_bot: webhookBot || null,
             updated_at: new Date().toISOString()
           };
 
@@ -1967,6 +2007,9 @@
             code_hash: await sha256(password),
             role: role,
             status: status,
+            connect_url: connectUrl || null,
+            webhook_url: webhookUrl || null,
+            webhook_bot: webhookBot || null,
             temp_expiry: null
           };
 
